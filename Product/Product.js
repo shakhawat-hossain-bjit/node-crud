@@ -21,16 +21,25 @@ class Product{
         // console.log(jsonData);
 
         fs.writeFileSync("./data/manga.json", JSON.stringify(jsonData))
-        console.log("Successfully added product with id ");
+        console.log("Successfully added product");
     }
 
     getOneById(id){
         const data=fs.readFileSync("./data/manga.json","utf-8")
         const jsonData= JSON.parse(data);
-        return jsonData.find(x=>x.id==id)
+        let res=jsonData.find(x=>x.id==id)
+        // console.log("res   ", res);
+        return res;
     }
 
     updateById(id, newInfo){
+        //check if newInfo contains id property
+        // console.log(newInfo)
+        if(newInfo.hasOwnProperty('id')){
+            console.log("id  property should not passed in object");
+            return;
+        }
+
         const data=fs.readFileSync("./data/manga.json","utf-8")
         const jsonData= JSON.parse(data);
 
@@ -39,11 +48,12 @@ class Product{
             if(x.id==id){
                 flag=1;
                 x={...x, ...newInfo}
-                console.log(x);
+                // console.log(x);
             }
             return x;
         })
 
+        // no product exists with this id
         if(flag==0){
             console.log("There is no such data with id ", id);
             return;
@@ -53,7 +63,27 @@ class Product{
         console.log("Successfully updated product with id ", id);
     }
 
-    // deleteById(id)
+
+    deleteById(id){
+        const data=fs.readFileSync("./data/manga.json","utf-8")
+        const jsonData= JSON.parse(data);
+        let isExist=jsonData.find(x=>x.id==id)
+        // console.log(isExist)
+        if(isExist){
+            let updatedJsonData=jsonData.filter(x=>{
+                if(x.id!=id){
+                   return x;
+                }
+            })
+            // console.log(" delete ",updatedJsonData)
+            fs.writeFileSync("./data/manga.json",JSON.stringify(updatedJsonData));
+            console.log("Successfully deleted product with id ", id);
+        }
+        else{
+            console.log("There is no such data with id ", id);
+        }
+
+    }
 }
 
 module.exports=new Product();
