@@ -1,21 +1,29 @@
 const Product = require("./Product/Product");
 
+const main = () => {
+  const total = Product.getAll();
+  // add
+  //   Product.add({
+  //     name: "One Piece, Vol. 1",
+  //     price: 9.99,
+  //     stock: 124,
+  //     author: "Eiichiro Oda",
+  //   });
 
-const main=()=>{
-    const total=Product.getAll();
-    // Product.add({
-    //     name: "One Piece, Vol. 1",
-    //     price: 9.99,
-    //     stock: 124,
-    //     author: "Eiichiro Oda"
-    // })
-    // let id=23
-    // let findProduct=Product.getOneById(id);
-    // console.log("Product with id", id, findProduct)
-    Product.updateById(8,{ price:88, stock: 10000, isPremimum:true });
+  // find by id
+  // let findProduct=Product.getOneById(23);
+  // console.log("Product with id", findProduct)
 
-    // Product.deleteById(10)
-}
- 
+  //  update by id
+  //   Product.updateById(4, {
+  //     price: 99,
+  //     stock: 100,
+  //     name: "New Manga ",
+  //     isPremimum: true,
+  //   });
+
+  //  deleteById
+  Product.deleteById(112);
+};
 
 main();
