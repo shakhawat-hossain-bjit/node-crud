@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-class Product {
+class Manga {
   getAll() {
     // const data=fs.readFileSync("./data/manga.json");
     const data = fs.readFileSync("./data/manga.json", "utf-8");
@@ -13,7 +13,7 @@ class Product {
     const jsonData = JSON.parse(data);
 
     let newProduct = { ...product, id: jsonData[jsonData.length - 1].id + 1 };
-    // console.log("The new Data is: ",newProduct)
+    // console.log("The new Data is: ", newProduct);
 
     // const newJsonData=[...jsonData,newProduct]
     // console.log(newJsonData);
@@ -29,7 +29,11 @@ class Product {
     const jsonData = JSON.parse(data);
     let res = jsonData.find((x) => x.id == id);
     // console.log("res   ", res);
-    return res;
+    if (res) {
+      return res;
+    } else {
+      return `There is no manga with id ${id}`;
+    }
   }
 
   updateById(id, newInfo) {
@@ -83,4 +87,4 @@ class Product {
   }
 }
 
-module.exports = new Product();
+module.exports = new Manga();
